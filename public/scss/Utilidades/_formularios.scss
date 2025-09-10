@@ -1,0 +1,184 @@
+/* ============================================= */
+/* ELEMENTOS DE FORMULARIO           */
+/* ============================================= */
+
+/* Inputs y Botones del .contenedor (Login) */
+.contenedor input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.contenedor button {
+  width: 90%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #749BFF;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.contenedor button:hover {
+  background-color: #3754c7;
+}
+
+.form-container {
+  display: none; /* ocultos por defecto */
+  flex: 1; /* ocupa el resto del espacio */
+  background: #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+/* Botones del .sidebar */
+.sidebar button {
+  padding: 10px 20px;
+  margin-bottom: 0.4rem;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  box-shadow: #536fb6 3px 3px;
+}
+
+.sidebar button:hover {
+  background-color: #e0e0e0;
+}
+
+
+
+/* Inputs y Botones del .form-container */
+.form-container input {
+  display: block;
+  margin: 20px auto;
+  padding: 20x;
+  width: 300px;
+  border-radius: 4px;
+  border:  solid white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-container button {
+ display: block;       /* Necesario para que margin auto funcione */
+  margin: auto;
+  padding: 12px 35px;
+  background-color: #4285F4;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid white;
+  font-size: 1rem;
+ 
+}
+
+
+.form-container.active {
+  display: block; /* se muestra solo el seleccionado */
+}
+.form-container button:hover {
+  background-color: #357AE8;
+}
+
+
+/* Estilos generales para el contenedor de la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Combina los bordes de las celdas para un aspecto más limpio */
+  font-family: Arial, sans-serif; /* Fuente más legible */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+  border-radius: 8px; /* Bordes redondeados para un look moderno */
+  overflow: hidden; /* Oculta cualquier contenido que se salga de los bordes redondeados */
+}
+
+/* Estilos para el encabezado de la tabla */
+thead {
+  background-color: #007BFF; /* Color de fondo azul vibrante */
+  color: white; /* Texto en blanco para un buen contraste */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+thead th {
+  padding: 12px 15px; /* Espaciado interno para las celdas del encabezado */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  font-size: 14px;
+  font-weight: bold;
+
+}
+
+/* Estilos para las filas del cuerpo de la tabla */
+tbody tr {
+  border-bottom: 1px solid #dddddd; /* Línea separadora entre filas */
+  
+  
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3; /* Color de fondo gris claro para filas pares */
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #007BFF; /* Línea de borde más gruesa al final de la tabla */
+}
+
+/* Estilos al pasar el mouse por encima de una fila */
+tbody tr:hover {
+  background-color: #e0e0e0; /* Cambia el color de fondo */
+  cursor: pointer; /* Cambia el cursor para indicar que es interactivo */
+  transform: scale(1.01); /* Efecto de "crecimiento" sutil */
+  transition: all 0.3s ease-in-out; /* Transición suave para el efecto */
+}
+
+/* Estilos para las celdas del cuerpo de la tabla */
+tbody td {
+  padding: 12px 15px; /* Espaciado interno */
+  background-color: #6183d8;
+  text-align: center;
+  font-weight: bold;
+}
+/* Estilos generales para los botones de la tabla */
+.boton-tabla {
+  padding: 8px 16px; /* Ajuste del padding para que se vea bien en una celda */
+  font-size: 13px; /* Tamaño de fuente más pequeño para la tabla */
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px #999; /* Sombra más sutil */
+  transition: all 0.2s ease-in-out; /* Transición suave para los efectos */
+}
+
+/* Estilo para el botón de "Editar" */
+.boton-tabla.editar {
+  background-color: #f0f0f0; /* Azul cian para el botón de editar */
+  border: 1px solid #ccc;
+  box-shadow: #536fb6 3px 3px;  
+}
+
+/* Estilo para el botón de "Borrar" */
+.boton-tabla.borrar {
+  background-color: #d9534f; /* Rojo para el botón de borrar */
+  color: white;
+  border-color: #d43f3a;
+}
+
+/* Efecto al pasar el mouse por encima de los botones */
+.boton-tabla:hover {
+  transform: translateY(-1px); /* Efecto de elevación */
+  box-shadow: 3px 3px #777;
+}
+
+/* Efecto al hacer clic en los botones */
+.boton-tabla:active {
+  transform: translateY(1px); /* Efecto de "presionado" */
+  box-shadow: 1px 1px #777;
+}

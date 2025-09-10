@@ -1,0 +1,89 @@
+/* ============================================= */
+/* CONTENEDORES                  */
+/* ============================================= */
+
+/* Contenedor principal para la página de login */
+.contenedor {
+  background-color: #e6e6e6;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.5);
+  width: 450px;
+  text-align: center;
+}
+
+.contenedor h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Contenedor principal para el dashboard con tarjetas */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 10rem;
+}
+
+.card {
+  background-color: #e6e6e6;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  width: 250px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  font-size: 25px;
+}
+
+.card:hover {
+  background-color: #d6d6d6;
+  transform: scale(1.05);
+}
+
+/* Contenedor para layout con sidebar y formulario */
+.container {
+  display: flex;
+  margin: 30px auto; /* Centrado horizontalmente */
+  width: 80%;
+  gap: 50px; /* Espacio entre sidebar y form-container */
+  justify-content: center;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0; /* Evita que el sidebar se encoja */
+}
+
+.form-container {
+  max-width: 500px;
+  width: 100%;
+  background-color: #d9d9d9;
+  padding: 20px 1px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #536fb6;
+}
+
+.form-container h2 {
+  margin-bottom: 15px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente los hijos */
+}

@@ -1,0 +1,18 @@
+# Composer
+/vendor/
+
+# Node
+/node_modules/
+
+# Logs y caché
+*.log
+/storage/
+.cache/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Configuración sensible
+.env
+*.local.php

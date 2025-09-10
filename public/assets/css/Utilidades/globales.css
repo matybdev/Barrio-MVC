@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* ============================================= */
+/* ESTILOS GLOBALES Y RESET             */
+/* ============================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Asegura que padding y border no afecten el tamaño total */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #749BFF;
+  min-height: 100vh;
+}
+
+/* Estilo específico para el body en la página de login */
+body.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================= */
+/* TIPOGRAFÍA                   */
+/* ============================================= */
+h1 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ============================================= */
+/* UTILIDADES                  */
+/* ============================================= */
+.toggle {
+  background: transparent;
+  border: none; /* Los botones deben tener borde a menos que se anule */
+  color: #4a6cf7;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  padding: 0; /* Anula padding por defecto */
+}
+/*# sourceMappingURL=globales.css.map */

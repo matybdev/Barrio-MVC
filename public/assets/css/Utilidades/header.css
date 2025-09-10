@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/* Estilo 2: header (Con título y usuario) */
+header {
+  background-color: #5381F4;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+header .titulo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+header .usuario {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0; /* Anula el margen global de h1 dentro del header */
+  letter-spacing: 1rem;
+}
+
+header h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  margin: 0; /* Anula márgenes */
+  letter-spacing: 1rem;
+}
+
+/* ============================================= */
+/* BARRAS DE NAVEGACIÓN             */
+/* ============================================= */
+/* Estilo 1: .nav-bar (Simple) */
+.nav-bar {
+  background-color: #5381F4;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* Estilo 3: .navbar (Izquierda, centro, derecha) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #558BFF;
+  color: white;
+  padding: 50px;
+  position: relative;
+}
+
+.navbar-left,
+.navbar-right {
+  flex: 2;
+  font-size: 25px;
+}
+
+.navbar-center {
+  flex: 10;
+  text-align: center;
+  font-weight: 600;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+/*# sourceMappingURL=header.css.map */
