@@ -108,5 +108,41 @@ public function editar() {
     }
 }
 
+//-------------------------------------------------------------------------    
+public function borrar() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require __DIR__ . '/../../includes/app.php';
+
+        // Capturamos el ID de la visita
+        $id = $_POST['id_visita'] ?? null;
+
+        if (!$id) {
+            echo "ID obligatorio no proporcionado";
+            return;
+        }
+
+        // Preparar la consulta para eliminar de la tabla visitas
+        $query = "DELETE FROM visitas WHERE id_visita = ?";
+        $stmt = $db->prepare($query);
+        
+        if (!$stmt) {
+            die("Error en prepare: " . $db->error);
+        }
+
+        // Vincular parámetros: i = integer
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            // Redireccionar a la vista correspondiente con un mensaje de éxito
+            // Nota: Cambiá "/visitas" por "/guardia" si manejás todo desde esa misma ruta
+            header("Location: /visitas?deleted=1");
+            exit;
+        } else {
+            echo "Error al eliminar la visita: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+}
 
 }

@@ -58,8 +58,8 @@ $propietario = $db->query("SELECT * FROM propietarios ORDER BY id_propietario AS
           </td>
           <td>
             <form action="borrar-propietario" method="POST" style="margin:0;">
-              <input type="hidden" name="id" value="<?= $propietario['id'] ?>">
-              <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este Propietario?')" class="boton-tabla borrar">Borrar</button>
+              <input type="hidden" name="id_propietario" value="<?= $propietario['id_propietario'] ?>">
+              <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este propietario?')" class="boton-tabla borrar">Borrar</button>
             </form>
           </td>
         </tr>

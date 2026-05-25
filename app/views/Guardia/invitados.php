@@ -39,7 +39,7 @@ $invitados = $db->query("SELECT * FROM invitados ORDER BY id_invitado ASC")->fet
                 </td>
                 <td>
                     <form action="borrar-invitado" method="POST" style="margin:0;">
-                        <input type="hidden" name="id" value="<?= $invitado['id_invitado'] ?>">
+                        <input type="hidden" name="id_invitado" value="<?= $invitado['id_invitado'] ?>">
                         <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este invitado?')" class="boton-tabla borrar">Borrar</button>
                     </form>
                 </td>

@@ -99,4 +99,39 @@ public function editar() {
 
 //-------------------------------------------------------------------------    
 
+//-------------------------------------------------------------------------    
+public function borrar() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require __DIR__ . '/../../includes/app.php';
+
+        // Capturamos el ID asegurándonos de usar el nombre correcto del input
+        $id = $_POST['id_propietario'] ?? null;
+
+        if (!$id) {
+            echo "ID obligatorio no proporcionado";
+            return;
+        }
+
+        // Preparar la consulta para eliminar
+        $query = "DELETE FROM propietarios WHERE id_propietario = ?";
+        $stmt = $db->prepare($query);
+        
+        if (!$stmt) {
+            die("Error en prepare: " . $db->error);
+        }
+
+        // Vincular parámetros: i = integer
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            // Redireccionar a la vista de propietarios con un mensaje de éxito
+            header("Location: /propietario?deleted=1");
+            exit;
+        } else {
+            echo "Error al eliminar el propietario: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+}
 }

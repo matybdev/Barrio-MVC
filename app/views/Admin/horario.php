@@ -47,9 +47,9 @@ $guardias = $db->query("SELECT id, cedula, horario, estado FROM guardias ORDER B
               )" class="boton-tabla editar">Editar</button>
             </td>
             <td>
-              <form action="borrar-guardia" method="POST" style="margin:0;">
+              <form action="borrar-horario" method="POST" style="margin:0;">
                 <input type="hidden" name="id" value="<?= $guardia['id'] ?>">
-                <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este guardia?')" class="boton-tabla borrar">Borrar</button>
+                <button type="submit" onclick="return confirm('¿Seguro que quieres borrar el horario de este guardia?')" class="boton-tabla borrar">Borrar Horario</button>
               </form>
             </td>
           </tr>

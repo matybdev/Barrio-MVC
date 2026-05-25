@@ -21,7 +21,6 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
   </div>
 
   <div class="main-content">
-    <!-- Tabla de guardias siempre visible -->
     <h2>Guardias Registrados</h2>
     <table border="1" cellpadding="5">
       <thead>
@@ -32,7 +31,7 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
           <th>Apellido</th>
           <th>Horario</th>
           <th>Estado</th>
-          <th >Editar</th>
+          <th>Editar</th>
           <th>Borrar</th>
         </tr>
       </thead>
@@ -50,7 +49,7 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
               <?= $guardia['id'] ?>,
               '<?= $guardia['cedula'] ?>',
               '<?= $guardia['nombre'] ?>',
-              '<?= $guardia['apellido'] ?>',
+              '<?= $guardia['apellido'] ?>'
             )" class="boton-tabla editar">Editar</button>
           </td>
           <td>
@@ -64,11 +63,10 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
       </tbody>
     </table>
 
-    <!-- Formulario CREAR -->
     <div id="form-crear" class="form-container" style="display:none;">
       <h2>CREAR</h2>
       <form action="crear-guardia" method="POST">
-        <input type="text" name="cedula" placeholder="Número de Cedula" required>
+        <input type="text" name="cedula" placeholder="Número de Cédula" required>
         <input type="text" name="nombre" placeholder="Nombre" required>
         <input type="text" name="apellido" placeholder="Apellido" required>
         <input type="text" name="horario" placeholder="Horario" required>
@@ -76,7 +74,6 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
       </form>
     </div>
 
-    <!-- Formulario EDITAR -->
     <div id="form-editar" class="form-container" style="display:none;">
       <h2>EDITAR</h2>
       <form id="editar-form" action="editar-guardia" method="POST">
@@ -88,15 +85,7 @@ $guardias = $db->query("SELECT * FROM guardias ORDER BY id ASC")->fetch_all(MYSQ
       </form>
     </div>
 
-    <!-- Formulario BORRAR (alternativo, también se puede usar el botón de la tabla) -->
-    <div id="form-borrar" class="form-container" style="display:none;">
-      <h2>BORRAR</h2>
-      <p>Para borrar, usa el botón "Borrar" en la tabla de guardias.</p>
-    </div>
-  </div>
-</div>
-
-<script>
+  </div> </div> <script>
   function mostrarFormulario(tipo) {
     document.querySelectorAll('.form-container').forEach(div => div.style.display='none');
     document.getElementById('form-' + tipo).style.display='block';

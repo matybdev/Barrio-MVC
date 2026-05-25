@@ -60,8 +60,8 @@ $visitas = $db->query("SELECT * FROM visitas ORDER BY id_visita ASC")->fetch_all
                 </td>
                 <td>
                     <form action="borrar-visita" method="POST" style="margin:0;">
-                        <input type="hidden" name="id" value="<?= $visita['id_visita'] ?>">
-                        <button type="submit" onclick="return confirm('¿Seguro que quieres borrar esta visita?')" class="boton-tabla borrar">Borrar</button>
+                        <input type="hidden" name="id_visita" value="<?= $visita['id_visita'] ?>">
+                        <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este registro de visita?')" class="boton-tabla borrar">Borrar</button>
                     </form>
                 </td>
             </tr>

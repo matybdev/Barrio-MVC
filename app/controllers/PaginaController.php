@@ -5,9 +5,6 @@ use MVC\Router;
 
 class PaginaController {
 
-    
-  
-
     public function showGuardia(){
 
          // Correct path for the header file
@@ -106,6 +103,39 @@ public function editar() {
 }
 
 //-------------------------------------------------------------------------    
+public function borrar() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require __DIR__ . '/../../includes/app.php';
+
+        $id = $_POST['id'] ?? null;
+
+        if (!$id) {
+            echo "ID obligatorio no proporcionado";
+            return;
+        }
+
+        // Preparar la consulta para eliminar
+        $query = "DELETE FROM guardias WHERE id = ?";
+        $stmt = $db->prepare($query);
+        
+        if (!$stmt) {
+            die("Error en prepare: " . $db->error);
+        }
+
+        // Vincular parámetros: i = integer
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            // Redireccionar con un mensaje de éxito
+            header("Location: /guardia?deleted=1");
+            exit;
+        } else {
+            echo "Error al eliminar el guardia: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+} 
 
 
 

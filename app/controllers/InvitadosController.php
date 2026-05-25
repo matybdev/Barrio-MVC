@@ -87,30 +87,41 @@ class InvitadosController{
         }
     }
 
-    // Borrar un invitado
-    public function borrar() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'] ?? null;
-            if (!$id) {
-                echo "ID no proporcionado";
-                return;
-            }
 
-            $query = "DELETE FROM invitados WHERE id_invitado = ?";
-            $stmt = $this->db->prepare($query);
-            if (!$stmt) die("Error en prepare: " . $this->db->error);
+    //-------------------------------------------------------------------------    
+public function borrar() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require __DIR__ . '/../../includes/app.php';
 
-            $stmt->bind_param("i", $id);
+        // Capturamos el ID del invitado
+        $id = $_POST['id_invitado'] ?? null;
 
-            if ($stmt->execute()) {
-                header("Location: /invitados?success_delete=1");
-                exit;
-            } else {
-                echo "Error al borrar invitado: " . $stmt->error;
-            }
-
-            $stmt->close();
+        if (!$id) {
+            echo "ID obligatorio no proporcionado";
+            return;
         }
+
+        // Preparar la consulta para eliminar de la tabla invitados
+        $query = "DELETE FROM invitados WHERE id_invitado = ?";
+        $stmt = $db->prepare($query);
+        
+        if (!$stmt) {
+            die("Error en prepare: " . $db->error);
+        }
+
+        // Vincular parámetros: i = integer
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            // Redireccionar a la vista de invitados con éxito
+            header("Location: /invitados?deleted=1");
+            exit;
+        } else {
+            echo "Error al eliminar el invitado: " . $stmt->error;
+        }
+
+        $stmt->close();
     }
+}
 }
 
