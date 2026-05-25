@@ -182,10 +182,9 @@ Durante el desarrollo se trabajó en:
 
 ---
 
-mermaid{
-%%{init: {"theme": "default", "themeVariables": {"fontSize": "18px", "fontFamily": "arial"}}}%%
+## Diagrama de clases
 
-
+```mermaid
 classDiagram
     class Usuario {
         -id_usuario: int
@@ -263,7 +262,7 @@ classDiagram
     
     Invitado "1" -- "*" Visita : realiza
     Propietario "1" -- "*" Visita : recibe
-}
+```
 ---
 
 
