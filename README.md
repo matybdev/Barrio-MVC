@@ -183,7 +183,6 @@ Durante el desarrollo se trabajó en:
 ---
 
 ## Diagrama de clases
-
 ```mermaid
 classDiagram
     class Usuario {
@@ -204,7 +203,11 @@ classDiagram
         +showVistaAdmin(): void
         +crearGuardia(cedula: String, nombre: String, apellido: String, horario: String): void
         +editarHorarioGuardia(id: int, horario: String, estado: String): void
+        +borrarHorarioGuardia(id: int): void
+        +borrarGuardia(id: int): void
         +crearPropietario(dniPro: String, nombre: String, apellido: String, propiedad: String): void
+        +editarPropietario(idPropietario: int, dni: String, nombre: String, apellido: String, propiedad: String): void
+        +borrarPropietario(idPropietario: int): void
     }
 
     class Guardia {
@@ -217,7 +220,11 @@ classDiagram
         -estado: String
         +showVistaGuardia(): void
         +registrarInvitado(dni: String, nombre: String, apellido: String): void
+        +editarInvitado(idInvitado: int, dni: String, nombre: String, apellido: String): void
+        +borrarInvitado(idInvitado: int): void
         +registrarVisita(dniVis: String, cantidad: int, patente: String, entrada: String, destino: String): void
+        +actualizarSalidaVisita(idVisita: int, horaSalida: DateTime): void
+        +borrarVisita(idVisita: int): void
     }
 
     class Invitado {
@@ -225,8 +232,6 @@ classDiagram
         -DNI_INV: String
         -nombre: String
         -apellido: String
-        +editar(idInvitado: int, dni: String, nombre: String, apellido: String): void
-        +borrar(idInvitado: int): void
     }
 
     class Propietario {
@@ -235,7 +240,6 @@ classDiagram
         -nombre: String
         -apellido: String
         -propiedad: String
-        +editar(idPropietario: int, dni: String, nombre: String, apellido: String, propiedad: String): void
     }
 
     class Visita {
@@ -246,7 +250,6 @@ classDiagram
         -hora_entrada: DateTime
         -hora_salida: DateTime
         -propiedad_destino: String
-        +actualizarSalida(idVisita: int, horaSalida: DateTime): void
     }
 
     %% Relaciones y Herencia
@@ -257,8 +260,8 @@ classDiagram
     Administrador "1" ..> "*" Guardia : gestiona
     Administrador "1" ..> "*" Propietario : gestiona
     
-    Guardia "1" ..> "*" Visita : registra
-    Guardia "1" ..> "*" Invitado : registra
+    Guardia "1" ..> "*" Visita : gestiona
+    Guardia "1" ..> "*" Invitado : gestiona
     
     Invitado "1" -- "*" Visita : realiza
     Propietario "1" -- "*" Visita : recibe
