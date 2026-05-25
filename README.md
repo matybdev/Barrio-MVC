@@ -182,11 +182,90 @@ Durante el desarrollo se trabajó en:
 
 ---
 
-## 📸 Capturas
+mermaid{
+%%{init: {"theme": "default", "themeVariables": {"fontSize": "18px", "fontFamily": "arial"}}}%%
 
-> Podés agregar screenshots del sistema acá.
 
+classDiagram
+    class Usuario {
+        -id_usuario: int
+        -username: String
+        -password: String
+        -id_rol: int
+        +login(username: String, password: String): boolean
+        +logout(): void
+    }
+
+    class Rol {
+        -id_rol: int
+        -nombre: String
+    }
+
+    class Administrador {
+        +showVistaAdmin(): void
+        +crearGuardia(cedula: String, nombre: String, apellido: String, horario: String): void
+        +editarHorarioGuardia(id: int, horario: String, estado: String): void
+        +crearPropietario(dniPro: String, nombre: String, apellido: String, propiedad: String): void
+    }
+
+    class Guardia {
+        -id: int
+        -usuario_id: int
+        -cedula: String
+        -nombre: String
+        -apellido: String
+        -horario: String
+        -estado: String
+        +showVistaGuardia(): void
+        +registrarInvitado(dni: String, nombre: String, apellido: String): void
+        +registrarVisita(dniVis: String, cantidad: int, patente: String, entrada: String, destino: String): void
+    }
+
+    class Invitado {
+        -id_invitado: int
+        -DNI_INV: String
+        -nombre: String
+        -apellido: String
+        +editar(idInvitado: int, dni: String, nombre: String, apellido: String): void
+        +borrar(idInvitado: int): void
+    }
+
+    class Propietario {
+        -id_propietario: int
+        -DNI_PRO: String
+        -nombre: String
+        -apellido: String
+        -propiedad: String
+        +editar(idPropietario: int, dni: String, nombre: String, apellido: String, propiedad: String): void
+    }
+
+    class Visita {
+        -id_visita: int
+        -DNI_VIS: String
+        -cantidad_personas: int
+        -patente: String
+        -hora_entrada: DateTime
+        -hora_salida: DateTime
+        -propiedad_destino: String
+        +actualizarSalida(idVisita: int, horaSalida: DateTime): void
+    }
+
+    %% Relaciones y Herencia
+    Usuario <|-- Administrador : es un tipo de
+    Rol "1" -- "*" Usuario : define permisos de
+    Usuario "1" -- "1" Guardia : le pertenece a
+    
+    Administrador "1" ..> "*" Guardia : gestiona
+    Administrador "1" ..> "*" Propietario : gestiona
+    
+    Guardia "1" ..> "*" Visita : registra
+    Guardia "1" ..> "*" Invitado : registra
+    
+    Invitado "1" -- "*" Visita : realiza
+    Propietario "1" -- "*" Visita : recibe
+}
 ---
+
 
 
 ## 👨‍💻 Repositorio
