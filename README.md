@@ -35,6 +35,23 @@ El objetivo principal del proyecto fue reforzar conocimientos sobre:
 
 ---
 
+## 📸 Vistas del Sistema
+
+### Inicio de Sesión
+![Login](readme-assets/Login.jpg)
+
+### Panel de Administrador
+![Vista Admin 1](readme-assets/adminvista.jpg)
+![Vista Admin 2](readme-assets/adminvista2.jpg)
+![Vista Admin 3](readme-assets/adminvista3.jpg)
+
+### Panel de Guardia
+![Vista Guardia 1](readme-assets/guardiavista.jpg)
+![Vista Guardia 2](readme-assets/guardiavista2.jpg)
+![Vista Guardia 3](readme-assets/guardiavista3.jpg)
+
+---
+
 ## 🛠️ Tecnologías utilizadas
 
 | Tecnología    | Uso                                      |
