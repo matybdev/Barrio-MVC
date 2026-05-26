@@ -1,128 +1,152 @@
 <?php
-// Incluir conexión a la DB
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Traer todos los guardias
-$propietario = $db->query("SELECT * FROM propietarios ORDER BY id_propietario ASC")->fetch_all(MYSQLI_ASSOC);
+
+ $propietarios = $db->query("SELECT * FROM propietarios ORDER BY id_propietario ASC")->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/app.css">
-  <title>Barrio - Registro / Inicio</title>  
-</head>
-
-
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <button onclick="mostrarFormulario('crear')">CREAR</button>
-      <a href="admin" style="text-decoration: none; color: inherit;">
-      <button onclick="ocultarFormularios('')" >VOLVER</button>
-      </a>
-    </div>
-  <div class="main-content">
-        <!-- Tabla de guardias siempre visible -->
-    <h2>Propietarios Registrados</h2>
-    <table border="1" cellpadding="5">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>DNI</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Propiedad</th>
-          <th >Editar</th>
-          <th>Borrar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($propietario as $propietario): ?>
-        <tr>
-          <td><?= $propietario['id_propietario'] ?></td>
-          <td><?= $propietario['DNI_PRO'] ?></td>
-          <td><?= $propietario['nombre'] ?></td>
-          <td><?= $propietario['apellido'] ?></td>
-          <td><?= $propietario['propiedad'] ?></td>
-          <td>
-            <button type="button" onclick="cargarFormularioEditar(
-              <?= $propietario['id_propietario'] ?>,
-              '<?= $propietario['DNI_PRO'] ?>',
-              '<?= $propietario['nombre'] ?>',
-              '<?= $propietario['apellido'] ?>',
-              '<?= $propietario['propiedad'] ?>',
-            )" class="boton-tabla editar">Editar</button>
-          </td>
-          <td>
-            <form action="borrar-propietario" method="POST" style="margin:0;">
-              <input type="hidden" name="id_propietario" value="<?= $propietario['id_propietario'] ?>">
-              <button type="submit" onclick="return confirm('¿Seguro que quieres borrar este propietario?')" class="boton-tabla borrar">Borrar</button>
-            </form>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-   <!-- Formulario CREAR -->
-    <div id="form-crear" class="form-container" style="display:none;">
-      <h2>CREAR</h2>
-      <form action="crear-propietario" method="POST">
-        <input type="text" name="DNI_PRO" placeholder="DNI del Propietario" required>
-        <input type="text" name="nombre" placeholder="Nombre" required>
-        <input type="text" name="apellido" placeholder="Apellido" required>
-        <input type="text" name="propiedad" placeholder="Propiedad" required>
-        <button type="submit">Crear Propietario</button>
-      </form>
+<main class="modulo-container animate-fade-in-up">
+    
+    <div class="cabecera-modulo">
+        <div class="acciones-modulo-izq">
+            <a href="admin" class="btn-secundario">VOLVER</a>
+            <button onclick="abrirModal('crear')" class="btn-primario">CREAR</button>
+        </div>
+        <div class="titulo-modulo-centro">
+            <h2>Propietarios Registrados</h2>
+        </div>
     </div>
 
-    <div id="form-editar" class="form-container" style="display:none;">
-      <h2>EDITAR</h2>
-      <form id="editar-form" action="editar-propietario" method="POST">
-        <input type="hidden" name="id_propietario" id="editar-id">
-        <input type="text" name="DNI_PRO" id="editar-dni" placeholder="DNI" required>
-        <input type="text" name="nombre" id="editar-nombre" placeholder="Nombre" required>
-        <input type="text" name="apellido" id="editar-apellido" placeholder="Apellido" required>
-        <input type="text" name="propiedad" id="editar-propiedad" placeholder="Propiedad" required>
-        <button type="submit">Guardar Cambios</button>
-      </form>
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Propiedad</th>
+                    <th style="text-align: center;">Editar</th>
+                    <th style="text-align: center;">Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($propietarios as $prop): ?>
+                <tr>
+                    <td><strong><?= $prop['id_propietario'] ?></strong></td>
+                    <td><?= htmlspecialchars($prop['DNI_PRO']) ?></td>
+                    <td><?= htmlspecialchars($prop['nombre']) ?></td>
+                    <td><?= htmlspecialchars($prop['apellido']) ?></td>
+                    <td><?= htmlspecialchars($prop['propiedad']) ?></td>
+                    <td style="text-align: center;">
+                        <button type="button" onclick="cargarFormularioEditar(
+                            <?= $prop['id_propietario'] ?>,
+                            '<?= htmlspecialchars($prop['DNI_PRO']) ?>',
+                            '<?= htmlspecialchars($prop['nombre']) ?>',
+                            '<?= htmlspecialchars($prop['apellido']) ?>',
+                            '<?= htmlspecialchars($prop['propiedad']) ?>'
+                        )" class="boton-tabla editar">Editar</button>
+                    </td>
+                    <td style="text-align: center;">
+                        <form action="borrar-propietario" method="POST" style="margin:0;">
+                            <input type="hidden" name="id_propietario" value="<?= $prop['id_propietario'] ?>">
+                            <button type="submit" onclick="return confirm('¿Seguro que quieres borrar a este propietario?')" class="boton-tabla borrar">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 
-    <!-- Formulario BORRAR -->
-    <div id="form-borrar" class="form-container">
-      <h2>BORRAR</h2>
-      <input type="text" placeholder="Documento de Identidad">
-      <button>Borrar Propietario</button>
-    </div>
-  </div>
+</main>
 
-  <script>
-  function mostrarFormulario(tipo){
+<div id="modal-fondo" class="modal-overlay" style="display: none;">
+    <div class="modal-box animate-fade-in-down">
+        
+        <div class="modal-header">
+            <h3 id="modal-titulo">Crear / Editar</h3>
+            <button type="button" class="btn-cerrar" onclick="cerrarModal()">X</button>
+        </div>
+
+        <form id="form-crear" action="crear-propietario" method="POST" class="formulario-modal" style="display:none;">
+            <div class="input-group">
+                <label for="crear-dni">DNI del Propietario</label>
+                <input type="text" name="DNI_PRO" id="crear-dni" required>
+            </div>
+            <div class="input-group">
+                <label for="crear-nombre">Nombre</label>
+                <input type="text" name="nombre" id="crear-nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="crear-apellido">Apellido</label>
+                <input type="text" name="apellido" id="crear-apellido" required>
+            </div>
+            <div class="input-group">
+                <label for="crear-propiedad">Propiedad (Ej: Manzana A Casa 1)</label>
+                <input type="text" name="propiedad" id="crear-propiedad" required>
+            </div>
+            <button type="submit" class="btn-primario" style="margin-top: 1rem; width: 100%;">Crear Propietario</button>
+        </form>
+
+        <form id="form-editar" action="editar-propietario" method="POST" class="formulario-modal" style="display:none;">
+            <input type="hidden" name="id_propietario" id="editar-id">
+            <div class="input-group">
+                <label for="editar-dni">DNI</label>
+                <input type="text" name="DNI_PRO" id="editar-dni" required>
+            </div>
+            <div class="input-group">
+                <label for="editar-nombre">Nombre</label>
+                <input type="text" name="nombre" id="editar-nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="editar-apellido">Apellido</label>
+                <input type="text" name="apellido" id="editar-apellido" required>
+            </div>
+            <div class="input-group">
+                <label for="editar-propiedad">Propiedad</label>
+                <input type="text" name="propiedad" id="editar-propiedad" required>
+            </div>
+            <button type="submit" class="btn-primario" style="margin-top: 1rem; width: 100%;">Guardar Cambios</button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+  function abrirModal(tipo) {
+    // Mostrar el fondo oscuro
+    document.getElementById('modal-fondo').style.display = 'flex';
+    
+    // Ocultar ambos formularios por defecto
     document.getElementById('form-crear').style.display = 'none';
     document.getElementById('form-editar').style.display = 'none';
 
-    if(tipo === 'crear'){
-      document.getElementById('form-crear').style.display = 'block';
-    } else if(tipo === 'editar'){
-      document.getElementById('form-editar').style.display = 'block';
+    // Mostrar el formulario que corresponde y ajustar el título
+    if (tipo === 'crear') {
+        document.getElementById('modal-titulo').innerText = 'Crear Nuevo Propietario';
+        document.getElementById('form-crear').style.display = 'block';
+    } else if (tipo === 'editar') {
+        document.getElementById('modal-titulo').innerText = 'Editar Propietario';
+        document.getElementById('form-editar').style.display = 'block';
     }
   }
 
-  function ocultarFormularios(){
-    document.getElementById('form-crear').style.display = 'none';
-    document.getElementById('form-editar').style.display = 'none';
+  function cerrarModal() {
+    document.getElementById('modal-fondo').style.display = 'none';
   }
 
-  function cargarFormularioEditar(id, dni, nombre, apellido, propiedad){
+  function cargarFormularioEditar(id, dni, nombre, apellido, propiedad) {
     document.getElementById('editar-id').value = id;
     document.getElementById('editar-dni').value = dni;
     document.getElementById('editar-nombre').value = nombre;
     document.getElementById('editar-apellido').value = apellido;
     document.getElementById('editar-propiedad').value = propiedad;
-
-    mostrarFormulario('editar');
+    
+    abrirModal('editar');
   }
 </script>
 </body>

@@ -48,7 +48,7 @@ class VisitasController{
 
         // Ejecutar
         if ($stmt->execute()) {
-            header("Location: /guardia?success=1");
+            header("Location: /visitas?success=1");
             exit;
         } else {
             echo "Error al crear la visita: " . $stmt->error;
@@ -98,7 +98,7 @@ public function editar() {
         $stmt->bind_param("sissssi", $dni, $cantidad, $patente, $entrada, $salida, $destino, $id);
 
         if ($stmt->execute()) {
-            header("Location: /guardia?success_edit=1");
+            header("Location: /visitas?success_edit=1");
             exit;
         } else {
             echo "Error al actualizar la visita: " . $stmt->error;

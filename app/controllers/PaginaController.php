@@ -52,7 +52,7 @@ class PaginaController {
     $stmt->bind_param("ssss", $cedula, $nombre, $apellido, $horario);
 
     if ($stmt->execute()) {
-        header("Location: /guardia?success=1");
+        header("Location: /guardias?success=1");
         exit;
     } else {
         echo "Error al crear el guardia: " . $stmt->error;
@@ -127,7 +127,7 @@ public function borrar() {
 
         if ($stmt->execute()) {
             // Redireccionar con un mensaje de éxito
-            header("Location: /guardia?deleted=1");
+            header("Location: /guardias?deleted=1");
             exit;
         } else {
             echo "Error al eliminar el guardia: " . $stmt->error;

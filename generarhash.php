@@ -9,3 +9,5 @@ if (password_verify($pass, $hash)) {
 } else {
     echo "❌ Contraseña incorrecta";
 }
+
+php -r "echo password_hash('hola', PASSWORD_BCRYPT);"

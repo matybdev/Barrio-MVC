@@ -1,84 +1,113 @@
 <?php
-// Incluye la conexión a la base de datos
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Traer todos los guardias
 $guardias = $db->query("SELECT id, cedula, horario, estado FROM guardias ORDER BY id ASC")->fetch_all(MYSQLI_ASSOC);
+
+
+
+
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/app.css">
-  <title>Horarios de Guardias</title>
-</head>
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <a href="admin"><button>VOLVER</button></a>
+<main class="modulo-container animate-fade-in-up">
+    
+    <div class="cabecera-modulo">
+        <div class="acciones-modulo-izq">
+            <a href="admin" class="btn-secundario">VOLVER</a>
+        </div>
+        <div class="titulo-modulo-centro">
+            <h2>Horarios de Guardias</h2>
+        </div>
     </div>
 
-    <div class="main-content">
-      <h2>Horarios de Guardias</h2>
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Horario</th>
+                    <th>Estado</th>
+                    <th style="text-align: center;">Editar</th>
+                    <th style="text-align: center;">Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($guardias as $guardia): ?>
+                <tr>
+                    <td><?= htmlspecialchars($guardia['cedula']) ?></td>
+                    <td><span class="badge-horario"><?= htmlspecialchars($guardia['horario']) ?></span></td>
+                    <td>
+                        <span class="badge-estado <?= ($guardia['estado'] == 'activo') ? 'activo' : 'inactivo' ?>">
+                            <?= htmlspecialchars($guardia['estado']) ?>
+                        </span>
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" onclick="cargarFormularioEditar(
+                            <?= $guardia['id'] ?>,
+                            '<?= htmlspecialchars($guardia['horario']) ?>',
+                            '<?= htmlspecialchars($guardia['estado']) ?>'
+                        )" class="boton-tabla editar">Editar</button>
+                    </td>
+                    <td style="text-align: center;">
+                        <form action="borrar-horario" method="POST" style="margin:0;">
+                            <input type="hidden" name="id" value="<?= $guardia['id'] ?>">
+                            <button type="submit" onclick="return confirm('¿Seguro que quieres borrar el horario de este guardia?')" class="boton-tabla borrar">Borrar Horario</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-      <!-- Tabla de guardias -->
-      <table border="1" cellpadding="5">
-        <thead>
-          <tr>
-            <th>Cédula</th>
-            <th>Horario</th>
-            <th>Estado</th>
-            <th>Editar</th>
-            <th>Borrar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($guardias as $guardia): ?>
-          <tr>
-            <td><?= $guardia['cedula'] ?></td>
-            <td><?= $guardia['horario'] ?></td>
-            <td><?= $guardia['estado'] ?></td>
-            <td>
-              <button type="button" onclick="cargarFormularioEditar(
-                <?= $guardia['id'] ?>,
-                '<?= $guardia['horario'] ?>',
-                '<?= $guardia['estado'] ?>'
-              )" class="boton-tabla editar">Editar</button>
-            </td>
-            <td>
-              <form action="borrar-horario" method="POST" style="margin:0;">
-                <input type="hidden" name="id" value="<?= $guardia['id'] ?>">
-                <button type="submit" onclick="return confirm('¿Seguro que quieres borrar el horario de este guardia?')" class="boton-tabla borrar">Borrar Horario</button>
-              </form>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+</main>
 
-      <!-- Formulario EDITAR -->
-      <div id="form-editar" class="form-container" style="display:none; margin-top:20px;">
-        <h2>Editar Horario</h2>
-        <form id="editar-form" action="editar-horario" method="POST">
-          <input type="hidden" name="id" id="editar-id">
-          <input type="text" name="horario" id="editar-horario" placeholder="Horario" required>
-          <select name="estado" id="editar-estado" required>
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
-          <button type="submit">Guardar Cambios</button>
+<div id="modal-fondo" class="modal-overlay" style="display: none;">
+    <div class="modal-box animate-fade-in-down">
+        
+        <div class="modal-header">
+            <h3>Editar Horario</h3>
+            <button type="button" class="btn-cerrar" onclick="cerrarModal()">X</button>
+        </div>
+
+        <form id="form-editar" action="editar-horario" method="POST" class="formulario-modal">
+            <input type="hidden" name="id" id="editar-id">
+            
+            <div class="input-group">
+                <label for="editar-horario">Horario</label>
+                <input type="text" name="horario" id="editar-horario" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="editar-estado">Estado</label>
+                <select name="estado" id="editar-estado" style="width: 100%; padding: 0.9rem 1rem; border: 2px solid #ddd; border-radius: 0.5rem; background-color: #fafafa; font-family: inherit;" required>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-primario" style="margin-top: 1rem; width: 100%;">Guardar Cambios</button>
         </form>
-      </div>
+
     </div>
-  </div>
+</div>
 
 <script>
-  function cargarFormularioEditar(id, horario, estado){
+  function abrirModal() {
+    document.getElementById('modal-fondo').style.display = 'flex';
+  }
+
+  function cerrarModal() {
+    document.getElementById('modal-fondo').style.display = 'none';
+  }
+
+  function cargarFormularioEditar(id, horario, estado) {
     document.getElementById('editar-id').value = id;
     document.getElementById('editar-horario').value = horario;
     document.getElementById('editar-estado').value = estado;
-    document.getElementById('form-editar').style.display = 'block'; // Muestra el formulario
+    
+    abrirModal();
   }
 </script>
 </body>

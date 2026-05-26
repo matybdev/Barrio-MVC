@@ -1,19 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <title>Barrio - Registro / Inicio</title>  
-</head>
-  <!-- Cuerpo -->
-  <main >
-    <a href="invitados" style="text-decoration: none; color: inherit;">
-    <div class="card">INVITADOS</div>
-    </a>
-    <a href="visitas" style="text-decoration: none; color: inherit;">
-    <div class="card">VISITAS</div>
-    </a>
-  </main>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Opcional: Validar que el usuario tenga sesión y sea Guardia (o Admin)
+if (!isset($_SESSION['usuario'])) {
+    header("Location: /login.php");
+    exit;
+}
+
+// Incluimos el header unificado (ya contiene los estilos y FontAwesome)
+include 'header.php'; 
+?>
+
+<main class="dashboard-centrado animate-fade-in-up">
+    
+    <div class="dashboard-header">
+        <h1 class="titulo-gigante">Panel de Guardia</h1>
+        <p class="subtitulo">Gestión de accesos y visitas del barrio</p>
+    </div>
+
+    <div class="fila-tarjetas">
+        <a href="invitados" class="card animacion-flotar delay-1">
+            <div class="card-icon"><i class="fa-solid fa-address-book"></i></div>
+            <h3>INVITADOS</h3>
+        </a>
+        
+        <a href="visitas" class="card animacion-flotar delay-2">
+            <div class="card-icon"><i class="fa-solid fa-car-side"></i></div>
+            <h3>VISITAS</h3>
+        </a>
+    </div>
+
+</main>
+
 </body>
 </html>
